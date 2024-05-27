@@ -1,0 +1,3 @@
+2, Ahmet, Çirci, ahmet, Çirci, 1234, true, false
+3, Mustafa, Çirci, admin, Çirci, admin, 0.0, 0.0, 0.0, 0.0, false, false, 0.0, 0.0
+1, Murat, Çirci, murat, Çirci, 1234, 200.0, 0.0, 0.0, 0.0, false, false, 0.0, 0.0
