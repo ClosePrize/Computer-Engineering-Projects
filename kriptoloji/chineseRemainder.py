@@ -13,9 +13,6 @@ def mod_inverse(a, m):
 
 
 def simplify_congruence(a, b, m):
-    """
-    a*x ≡ b (mod m) denkleminden x ≡ r (mod m') haline getirir.
-    """
     g, _, _ = oklid_teoremi(a, m)
     if b % g != 0:
         raise ValueError(f"{a}x ≡ {b} (mod {m}) çözümsüz!")
@@ -31,10 +28,6 @@ def simplify_congruence(a, b, m):
 
 
 def chinese_remainder_general(equations):
-    """
-    equations: [(a1,b1,m1), (a2,b2,m2), ...]
-    her biri a_i*x ≡ b_i (mod m_i)
-    """
     simplified = [simplify_congruence(a, b, m) for (a, b, m) in equations]
     residues = [r for r, _ in simplified]
     moduli = [m for _, m in simplified]
@@ -53,7 +46,6 @@ def chinese_remainder(n_list, a_list):
     return total % N
 
 
-# ==== ÖRNEK ====
 equations = [
     (15, 21, 48),  # 15x ≡ 21 (mod 48)
     (166, 46, 22), # 166x ≡ 46 (mod 22)

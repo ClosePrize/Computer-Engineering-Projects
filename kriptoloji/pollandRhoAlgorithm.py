@@ -32,7 +32,7 @@ def solve_pollard_rho_auto(p, alpha, beta):
     
     while True:
         attempt += 1
-        
+        print(f"\r--- Deneme #{attempt} ---", end="", flush=True)
         # 1. Rastgele Başlangıç Değerleri Seç
         # x, a, b değerlerini rastgele seçiyoruz ki "kötü" döngülerden kurtulalım.
         x_start = random.randint(1, n)
