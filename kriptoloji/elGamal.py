@@ -36,8 +36,8 @@ class ElGamal:
         self.public_key = (p, g, y)
         
         print(f"El-Gamal Anahtarları Oluşturuldu:")
-        print(f"Genel (p, g, y): {self.public_key}")
-        print(f"Özel (x): {self.private_key}")
+        print(f"Public keys (p, g, y): {self.public_key}")
+        print(f"Private key (x): {self.private_key}")
 
     def sifrele(self, mesaj_sayisi):
         p, g, y = self.public_key
@@ -63,14 +63,52 @@ class ElGamal:
         cozulmus_mesaj = (c2 * s_ters) % p
         return cozulmus_mesaj
 
-print("\n--- EL-GAMAL TESTİ ---")
-elgamal = ElGamal()
-elgamal.anahtar_uret(107, 2)
 
-mesaj = 65
-sifreli_veri = elgamal.sifrele(mesaj)
-cozulmus_veri = elgamal.coz(sifreli_veri)
 
-print(f"Orijinal Mesaj: {mesaj}")
-print(f"Şifreli Veri (c1, c2): {sifreli_veri}")
-print(f"Çözülmüş Mesaj: {cozulmus_veri}")
+MODP_1024 = int(
+    "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
+    "29024E088A67CC74020BBEA63B139B22514A08798E3404DD"
+    "EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245"
+    "E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF",
+    16
+)
+
+MODP_2048 = int(
+    "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
+    "29024E088A67CC74020BBEA63B139B22514A08798E3404DD"
+    "EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245"
+    "E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED"
+    "EE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381"
+    "FFFFFFFFFFFFFFFF",
+    16
+)
+
+g = 2
+
+
+def elgamal_test(p, g, mesaj):
+    elgamal = ElGamal()
+    elgamal.anahtar_uret(p, g)
+
+    sifreli = elgamal.sifrele(mesaj)
+    cozulmus = elgamal.coz(sifreli)
+
+    print(f"Mesaj: {mesaj}")
+    print(f"Şifreli (c1, c2):")
+    print(f"c1 = {sifreli[0]}")
+    print(f"c2 = {sifreli[1]}")
+    print(f"Çözülmüş Mesaj: {cozulmus}")
+
+    assert mesaj == cozulmus, "❌ HATA: Çözme başarısız!"
+    print("✅ Test başarılı\n")
+
+
+print("\n=========== ELGAMAL TESTLERİ ===========")
+
+mesaj = 123456789
+
+print("🔐 1024-bit ElGamal Testi")
+elgamal_test(MODP_1024, g, mesaj)
+
+print("🔐 2048-bit ElGamal Testi")
+elgamal_test(MODP_2048, g, mesaj)
